@@ -4,7 +4,11 @@ import App from './App.vue'
 import { createRouter } from './router'
 import { createStore } from './store'
 import { sync } from 'vuex-router-sync'
+import titleMixin from './lib/title'
 
+Vue.mixin(titleMixin)
+
+import 'normalize.css'
 export function createApp () {
   // 创建 router 和 store 实例
   const router = createRouter()

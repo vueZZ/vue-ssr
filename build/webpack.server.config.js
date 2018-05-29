@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 const baseConfig = require('./webpack.base.config.js')
@@ -16,10 +17,13 @@ module.exports = merge(baseConfig, {
   devtool: 'source-map',
 
   // 此处告知 server bundle 使用 Node 风格导出模块(Node-style exports)
+  // output: {
+  //   libraryTarget: 'commonjs2'
+  // },
   output: {
+    filename: 'server-bundle.js',
     libraryTarget: 'commonjs2'
   },
-
   // https://webpack.js.org/configuration/externals/#function
   // https://github.com/liady/webpack-node-externals
   // 外置化应用程序依赖模块。可以使服务器构建速度更快，
@@ -35,6 +39,10 @@ module.exports = merge(baseConfig, {
   // 构建为单个 JSON 文件的插件。
   // 默认文件名为 `vue-ssr-server-bundle.json`
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.VUE_ENV': '"server"'
+    }),
     new VueSSRServerPlugin()
   ]
 })

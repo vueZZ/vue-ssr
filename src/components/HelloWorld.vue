@@ -14,6 +14,9 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
+  title () {
+    return 'HelloWorld'
+  },
   computed: {
     name () {
       return this.$store.state.name
@@ -21,6 +24,7 @@ export default {
   }
 }
 </script>
+
 
 
 

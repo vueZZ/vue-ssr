@@ -1,6 +1,6 @@
 # ssr
 
-> vue-ssr1 demo
+> vue-ssr demo
 
 ## Build Setup
 

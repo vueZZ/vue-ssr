@@ -46,11 +46,20 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        // 重要：使用 vue-style-loader 替代 style-loader
-        loader: ['vue-style-loader', 'css-loader']
-        // use: ['vue-style-loader', 'css-loader']
-      }
+        test: /\.styl(us)?$/,
+        use: isProd
+          ? ExtractTextPlugin.extract({
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: { minimize: true }
+                },
+                'stylus-loader'
+              ],
+              fallback: 'vue-style-loader'
+            })
+          : ['vue-style-loader', 'css-loader', 'stylus-loader']
+      },
     ]
   },
   performance: {
